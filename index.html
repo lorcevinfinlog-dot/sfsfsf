@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>каз — скачать Gamble With Your Friends</title>
+  <title>каз</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -12,35 +12,70 @@
       background: #f6f8fa;
       color: #1f2328;
     }
-
-    h1 {
-      font-size: 32px;
-      margin-bottom: 30px;
-    }
-
+    h1 { font-size: 32px; margin-bottom: 30px; }
     .btn {
       display: inline-block;
       padding: 16px 32px;
       background: #2ea44f;
       color: #fff;
-      text-decoration: none;
+      border: none;
       border-radius: 8px;
       font-size: 18px;
       font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
     }
-
-    .btn:hover {
-      background: #22863a;
-    }
+    .btn:hover { background: #22863a; }
+    .btn:disabled { background: #8b949e; cursor: progress; }
+    .status { margin-top: 16px; color: #57606a; font-size: 14px; }
+    .fallback { margin-top: 20px; font-size: 13px; color: #57606a; }
+    .fallback a { color: #0969da; }
   </style>
 </head>
 <body>
   <h1>каз</h1>
 
-  <a class="btn"
-     href="./Gamble.With.Your.Friends.torrent"
-     download="Gamble.With.Your.Friends.torrent">
-    Скачать Gamble With Your Friends
-  </a>
+  <button id="dl" class="btn" type="button">Скачать оба файла</button>
+  <div id="status" class="status"></div>
+
+  <div class="fallback">
+    Если не скачалось — по отдельности:
+    <a href="./Ghost.Hunter.torrent" download>Ghost Hunter</a> ·
+    <a href="./Gamble.With.Your.Friends.torrent" download>Gamble With Your Friends</a>
+  </div>
+
+  <script>
+    const FILES = [
+      { href: './Ghost.Hunter.torrent', name: 'Ghost.Hunter.torrent' },
+      { href: './Gamble.With.Your.Friends.torrent', name: 'Gamble.With.Your.Friends.torrent' }
+    ];
+
+    const btn = document.getElementById('dl');
+    const status = document.getElementById('status');
+
+    function download(file) {
+      const a = document.createElement('a');
+      a.href = file.href;
+      a.download = file.name;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    btn.addEventListener('click', () => {
+      btn.disabled = true;
+      status.textContent = 'Скачиваем два файла…';
+
+      FILES.forEach((f, i) => {
+        setTimeout(() => download(f), i * 800);
+      });
+
+      setTimeout(() => {
+        status.textContent = 'Готово. Проверьте «Загрузки». Если скачался только один — разрешите несколько скачиваний в браузере.';
+        btn.disabled = false;
+      }, FILES.length * 800 + 800);
+    });
+  </script>
 </body>
 </html>
