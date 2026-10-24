@@ -3,52 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Скачать торрент-файлы</title>
+  <meta name="description" content="Скачать торрент-файлы популярных игр: Phasmophobia и Gamble With Your Friends">
+  <title>Скачать торрент-файлы — Phasmophobia и Gamble With Your Friends</title>
   <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 60px 20px;
-      background: #f6f8fa;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #f6f8fa 0%, #e6ecf3 100%);
+      min-height: 100vh;
+      color: #1f2328;
+    }
+
+    header {
+      max-width: 900px;
+      margin: 0 auto 40px;
+    }
+
+    header h1 {
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: #1f2328;
+    }
+
+    header .subtitle {
+      font-size: 16px;
+      color: #57606a;
+      line-height: 1.5;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto 40px;
+    }
+
+    .game-block {
+      background: #ffffff;
+      border: 1px solid #d0d7de;
+      border-radius: 14px;
+      padding: 32px 24px;
+      box-shadow: 0 4px 14px rgba(31, 35, 40, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .game-block:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(31, 35, 40, 0.12);
+    }
+
+    .game-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .game-block h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #1f2328;
+    }
+
+    .game-block p {
+      font-size: 15px;
+      color: #57606a;
+      line-height: 1.6;
+      margin-bottom: 22px;
+      flex-grow: 1;
+    }
+
+    .game-meta {
+      font-size: 13px;
+      color: #8b949e;
+      margin-bottom: 18px;
+    }
+
     .btn {
       display: inline-block;
       padding: 14px 28px;
       background: #2ea44f;
-      color: #fff;
+      color: #ffffff;
       text-decoration: none;
       border-radius: 8px;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: bold;
-      margin: 8px;
+      transition: background 0.2s ease, transform 0.15s ease;
+      width: 100%;
+      max-width: 320px;
     }
-    .btn:hover { background: #22863a; }
-    .note { color: #57606a; margin-top: 20px; font-size: 14px; }
-    .game-block { margin-bottom: 40px; }
+
+    .btn:hover {
+      background: #22863a;
+      transform: scale(1.02);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .note {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 18px 22px;
+      background: #fff8e1;
+      border: 1px solid #f0d68a;
+      border-radius: 10px;
+      color: #6b5500;
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: left;
+    }
+
+    .note strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    footer {
+      max-width: 900px;
+      margin: 50px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid #d0d7de;
+      font-size: 13px;
+      color: #8b949e;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 26px;
+      }
+      .game-block {
+        padding: 24px 18px;
+      }
+      .btn {
+        font-size: 15px;
+        padding: 12px 20px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="game-block">
-    <h1>Phasmophobia</h1>
-    <p>Нажмите кнопку ниже, чтобы скачать торрент-файл игры.</p>
+  <header>
+    <h1>🎮 Скачать торрент-файлы</h1>
+    <p class="subtitle">
+      Выберите игру и нажмите кнопку ниже, чтобы скачать торрент-файл.
+      Все файлы проверены и готовы к использованию.
+    </p>
+  </header>
 
-    <a class="btn" href="./Phasmophobia.v0.19.0.0.zip.torrent" download="Phasmophobia.v0.19.0.0.zip.torrent">
-      Скачать Phasmophobia.torrent
-    </a>
-  </div>
+  <main class="games-grid">
+    <div class="game-block">
+      <div class="game-icon">👻</div>
+      <h2>Phasmophobia</h2>
+      <p>
+        Кооперативный хоррор-симулятор охоты за привидениями.
+        Исследуйте заброшенные локации, используйте оборудование и
+        постарайтесь выжить вместе с командой.
+      </p>
+      <div class="game-meta">Версия: v0.19.0.0 &middot; Жанр: Horror / Co-op</div>
+      <a class="btn"
+         href="./Phasmophobia.v0.19.0.0.zip.torrent"
+         download="Phasmophobia.v0.19.0.0.zip.torrent">
+        ⬇ Скачать Phasmophobia.torrent
+      </a>
+    </div>
 
-  <div class="game-block">
-    <h1>Gamble With Your Friends</h1>
-    <p>Нажмите кнопку ниже, чтобы скачать торрент-файл игры.</p>
-
-    <a class="btn" href="./Gamble.With.Your.Friends.torrent" download="Gamble.With.Your.Friends.torrent">
-      Скачать Gamble.With.Your.Friends.torrent
-    </a>
-  </div>
+    <div class="game-block">
+      <div class="game-icon">🎲</div>
+      <h2>Gamble With Your Friends</h2>
+      <p>
+        Весёлая многопользовательская игра про азартные мини-игры
+        в компании друзей. Испытайте удачу, делайте ставки и
+        наслаждайтесь хаосом.
+      </p>
+      <div class="game-meta">Жанр: Party / Multiplayer</div>
+      <a class="btn"
+         href="./Gamble.With.Your.Friends.torrent"
+         download="Gamble.With.Your.Friends.torrent">
+        ⬇ Скачать Gamble.With.Your.Friends.torrent
+      </a>
+    </div>
+  </main>
 
   <p class="note">
-    Если файл открылся в браузере, нажмите на ссылку правой кнопкой →
-    «Сохранить ссылку как…»
+    <strong>⚠ Важно</strong>
+    Если файл открылся прямо в браузере вместо загрузки — нажмите
+    на ссылку правой кнопкой мыши и выберите
+    «Сохранить ссылку как…», чтобы скачать торрент-файл на компьютер.
   </p>
+
+  <footer>
+    <p>Все торрент-файлы предоставлены для ознакомительных целей.</p>
+    <p>Пожалуйста, поддерживайте разработчиков, приобретая игры официально.</p>
+  </footer>
 </body>
 </html>
