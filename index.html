@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Скачать торрент-файлы популярных игр: Phasmophobia и Gamble With Your Friends">
-  <title>Скачать торрент-файлы — Phasmophobia и Gamble With Your Friends</title>
+  <meta name="description" content="Скачать торрент-файлы Part2 и Gamble With Your Friends одной кнопкой">
+  <title>Скачать торрент-файлы — Part2 и Gamble With Your Friends</title>
   <style>
     * {
       box-sizing: border-box;
@@ -43,7 +43,7 @@
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 24px;
       max-width: 900px;
-      margin: 0 auto 40px;
+      margin: 0 auto 32px;
     }
 
     .game-block {
@@ -72,34 +72,51 @@
       font-size: 22px;
       margin-bottom: 10px;
       color: #1f2328;
+      word-break: break-word;
     }
 
     .game-block p {
       font-size: 15px;
       color: #57606a;
       line-height: 1.6;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
       flex-grow: 1;
     }
 
     .game-meta {
       font-size: 13px;
       color: #8b949e;
-      margin-bottom: 18px;
+      margin-bottom: 6px;
+    }
+
+    .file-name {
+      font-size: 12px;
+      color: #8b949e;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      word-break: break-all;
+    }
+
+    .download-area {
+      max-width: 900px;
+      margin: 0 auto 32px;
     }
 
     .btn {
       display: inline-block;
-      padding: 14px 28px;
+      padding: 18px 36px;
       background: #2ea44f;
       color: #ffffff;
       text-decoration: none;
-      border-radius: 8px;
-      font-size: 17px;
+      border: none;
+      border-radius: 10px;
+      font-size: 19px;
       font-weight: bold;
+      font-family: inherit;
+      cursor: pointer;
       transition: background 0.2s ease, transform 0.15s ease;
       width: 100%;
-      max-width: 320px;
+      max-width: 460px;
+      box-shadow: 0 6px 18px rgba(46, 164, 79, 0.28);
     }
 
     .btn:hover {
@@ -109,6 +126,48 @@
 
     .btn:active {
       transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      background: #8b949e;
+      cursor: progress;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .status {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #57606a;
+      min-height: 20px;
+      line-height: 1.5;
+    }
+
+    .fallback {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #57606a;
+      line-height: 1.8;
+    }
+
+    .fallback a {
+      color: #0969da;
+      text-decoration: none;
+      border-bottom: 1px dashed currentColor;
+    }
+
+    .fallback a:hover {
+      color: #0550ae;
+    }
+
+    /* Скрытые ссылки: они реально в DOM, но не видны */
+    .hidden-links a {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
     }
 
     .note {
@@ -147,8 +206,8 @@
         padding: 24px 18px;
       }
       .btn {
-        font-size: 15px;
-        padding: 12px 20px;
+        font-size: 16px;
+        padding: 14px 22px;
       }
     }
   </style>
@@ -157,55 +216,102 @@
   <header>
     <h1>🎮 Скачать торрент-файлы</h1>
     <p class="subtitle">
-      Выберите игру и нажмите кнопку ниже, чтобы скачать торрент-файл.
+      Одна кнопка — сразу два торрент-файла.
       Все файлы проверены и готовы к использованию.
     </p>
   </header>
 
-  <main class="games-grid">
-    <div class="game-block">
-      <div class="game-icon">👻</div>
-      <h2>Part2.v0.19.0.0.zip.torrent</h2>
-      <p>
-        Кооперативный хоррор-симулятор охоты за привидениями.
-        Исследуйте заброшенные локации, используйте оборудование и
-        постарайтесь выжить вместе с командой.
-      </p>
-      <div class="game-meta">Версия: v0.19.0.0 &middot; Жанр: Horror / Co-op</div>
-      <a class="btn"
-         href="./Part2.v0.19.0.0.zip.torrent"
-         download="Part2.v0.19.0.0.zip.torrent">
-        ⬇ Скачать Part2.v0.19.0.0.zip.torrent
-      </a>
+  <main>
+    <div class="games-grid">
+      <div class="game-block">
+        <div class="game-icon">👻</div>
+        <h2>Part2</h2>
+        <p>
+          Кооперативный хоррор-симулятор охоты за привидениями.
+          Исследуйте заброшенные локации, используйте оборудование и
+          постарайтесь выжить вместе с командой.
+        </p>
+        <div class="game-meta">Версия: v0.19.0.0 &middot; Жанр: Horror / Co-op</div>
+        <div class="file-name">Part2.v0.19.0.0.zip.torrent</div>
+      </div>
+
+      <div class="game-block">
+        <div class="game-icon">🎲</div>
+        <h2>Gamble With Your Friends</h2>
+        <p>
+          Весёлая многопользовательская игра про азартные мини-игры
+          в компании друзей. Испытайте удачу, делайте ставки и
+          наслаждайтесь хаосом.
+        </p>
+        <div class="game-meta">Жанр: Party / Multiplayer</div>
+        <div class="file-name">Gamble.With.Your.Friends.torrent</div>
+      </div>
     </div>
 
-    <div class="game-block">
-      <div class="game-icon">🎲</div>
-      <h2>Gamble With Your Friends</h2>
-      <p>
-        Весёлая многопользовательская игра про азартные мини-игры
-        в компании друзей. Испытайте удачу, делайте ставки и
-        наслаждайтесь хаосом.
-      </p>
-      <div class="game-meta">Жанр: Party / Multiplayer</div>
-      <a class="btn"
-         href="./Gamble.With.Your.Friends.torrent"
-         download="Gamble.With.Your.Friends.torrent">
-        ⬇ Скачать Gamble.With.Your.Friends.torrent
-      </a>
+    <div class="download-area">
+      <button id="download-all" class="btn" type="button">
+        ⬇ Скачать оба торрент-файла
+      </button>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+
+      <div class="fallback">
+        Если браузер заблокировал автозагрузку, скачайте по отдельности:
+        <a href="./Part2.v0.19.0.0.zip.torrent"
+           download="Part2.v0.19.0.0.zip.torrent">Part2</a>
+        &middot;
+        <a href="./Gamble.With.Your.Friends.torrent"
+           download="Gamble.With.Your.Friends.torrent">Gamble With Your Friends</a>
+      </div>
     </div>
+
+    <p class="note">
+      <strong>⚠ Важно</strong>
+      Браузер может спросить разрешение на скачивание нескольких файлов —
+      выберите «Разрешить». Если файл открылся прямо в браузере вместо загрузки,
+      нажмите на ссылку правой кнопкой мыши и выберите «Сохранить ссылку как…».
+    </p>
   </main>
-
-  <p class="note">
-    <strong>⚠ Важно</strong>
-    Если файл открылся прямо в браузере вместо загрузки — нажмите
-    на ссылку правой кнопкой мыши и выберите
-    «Сохранить ссылку как…», чтобы скачать торрент-файл на компьютер.
-  </p>
 
   <footer>
     <p>Все торрент-файлы предоставлены для ознакомительных целей.</p>
     <p>Пожалуйста, поддерживайте разработчиков, приобретая игры официально.</p>
   </footer>
+
+  <!-- Скрытые реальные ссылки: обе в DOM, чтобы браузер разрешил две загрузки -->
+  <div class="hidden-links" aria-hidden="true">
+    <a id="link-part2"
+       href="./Part2.v0.19.0.0.zip.torrent"
+       download="Part2.v0.19.0.0.zip.torrent">Part2</a>
+    <a id="link-gamble"
+       href="./Gamble.With.Your.Friends.torrent"
+       download="Gamble.With.Your.Friends.torrent">Gamble With Your Friends</a>
+  </div>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('download-all');
+      var status = document.getElementById('status');
+      var link1 = document.getElementById('link-part2');
+      var link2 = document.getElementById('link-gamble');
+
+      btn.addEventListener('click', function () {
+        btn.disabled = true;
+        status.textContent = 'Скачиваем два файла…';
+
+        // Оба клика — синхронно, внутри одного обработчика.
+        // Браузер считает это одним «user gesture» и разрешает обе загрузки.
+        link1.click();
+        link2.click();
+
+        setTimeout(function () {
+          status.textContent =
+            'Готово! Проверьте папку «Загрузки». Если появился только один файл — ' +
+            'разрешите скачивание нескольких файлов в настройках браузера ' +
+            'или воспользуйтесь ссылками выше.';
+          btn.disabled = false;
+        }, 1200);
+      });
+    })();
+  </script>
 </body>
 </html>
