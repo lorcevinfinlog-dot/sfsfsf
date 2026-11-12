@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Скачать торрент-файлы игр: Phasmophobia, Gamble With Your Friends, Forts, а также PyCode Editor">
-  <title>⚡ Скачать — игры + PyCode Editor</title>
+  <meta name="description" content="Скачать торрент-файлы игр: Phasmophobia, Gamble With Your Friends, Forts, PyCode Editor и Milida Launcher">
+  <title>⚡ Скачать файлы</title>
   <style>
     :root {
       --bg: #05060e;
@@ -16,6 +16,8 @@
       --blue-glow: rgba(77, 158, 255, 0.6);
       --purple: #a970ff;
       --purple-glow: rgba(169, 112, 255, 0.6);
+      --orange: #f0883e;
+      --orange-glow: rgba(240, 136, 62, 0.6);
       --glass: rgba(255, 255, 255, 0.035);
       --glass-border: rgba(255, 255, 255, 0.09);
     }
@@ -392,7 +394,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.25);
     }
 
-    /* ФИОЛЕТОВАЯ (на будущее) */
+    /* ФИОЛЕТОВАЯ */
     .btn.purple {
       background: linear-gradient(135deg, #a970ff 0%, #7540d9 100%);
       box-shadow:
@@ -403,6 +405,20 @@
     .btn.purple:hover {
       box-shadow:
         0 8px 30px rgba(169, 112, 255, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    /* ОРАНЖЕВАЯ (Milida Launcher) */
+    .btn.orange {
+      background: linear-gradient(135deg, #f0883e 0%, #c96620 100%);
+      box-shadow:
+        0 4px 16px rgba(240, 136, 62, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .btn.orange:hover {
+      box-shadow:
+        0 8px 30px rgba(240, 136, 62, 0.65),
         inset 0 1px 0 rgba(255, 255, 255, 0.25);
     }
 
@@ -531,7 +547,7 @@
   <header>
     <h1>⚡ Скачать файлы</h1>
     <p class="subtitle">
-      Торрент-файлы игр и PyCode Editor — выберите нужное и скачайте одним кликом.
+      Торрент-файлы игр, PyCode Editor и Лаунчер — выберите нужное и скачайте одним кликом.
       Все файлы проверены и готовы к использованию.
     </p>
   </header>
@@ -547,9 +563,10 @@
         постарайтесь выжить вместе с командой.
       </p>
       <div class="game-meta">v0.19.0.0 · Horror / Co-op</div>
+      <!-- ССЫЛКА ВОЗВРАЩЕНА НА ПРАВИЛЬНОЕ ИМЯ -->
       <a class="btn"
-         href="./Phasmophobia.v0.19.0.0.zip.torrent"
-         download="Phasmophobia.v0.19.0.0.zip.torrent">
+         href="./Phasmophobia.v0.19.0.0.torrent"
+         download="Phasmophobia.v0.19.0.0.torrent">
         ⬇ Скачать Phasmophobia.torrent
       </a>
     </div>
@@ -588,6 +605,22 @@
       </a>
     </div>
 
+    <!-- Milida Launcher -->
+    <div class="game-block reveal">
+      <div class="game-icon">🚀</div>
+      <h2>Milida Launcher</h2>
+      <p>
+        Удобный и быстрый лаунчер для запуска игры.
+        Включает в себя все необходимые настройки и обновления.
+      </p>
+      <div class="game-meta">Setup.exe · Launcher</div>
+      <a class="btn orange"
+         href="./MilidaLauncherSetup.exe"
+         download="MilidaLauncherSetup.exe">
+        ⬇ Скачать MilidaLauncherSetup.exe
+      </a>
+    </div>
+
     <!-- PyCode Editor -->
     <div class="game-block reveal">
       <div class="game-icon">💻</div>
@@ -614,10 +647,9 @@
   </p>
 
   <p class="note info reveal">
-    <strong>🛡 PyCode.exe</strong>
-    Windows SmartScreen может показать предупреждение — это нормально
-    для неподписанных приложений. Нажмите «Подробнее» → «Выполнить в любом случае».
-    Исходный код открыт, вредоносного ПО нет.
+    <strong>🛡 Антивирус / SmartScreen</strong>
+    Windows может показать предупреждение — это нормально для неподписанных .exe файлов.
+    Нажмите «Подробнее» → «Выполнить в любом случае». Вредоносного ПО нет.
   </p>
 
   <footer>
