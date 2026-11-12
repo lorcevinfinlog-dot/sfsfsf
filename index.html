@@ -3,167 +3,542 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Скачать торрент-файлы популярных игр: Phasmophobia и Gamble With Your Friends">
-  <title>Скачать торрент-файлы — Phasmophobia и Gamble With Your Friends</title>
+  <meta name="description" content="Скачать торрент-файлы игр: Phasmophobia, Gamble With Your Friends, Forts, а также PyCode Editor">
+  <title>⚡ Скачать — игры + PyCode Editor</title>
   <style>
+    :root {
+      --bg: #05060e;
+      --text: #e6edf3;
+      --text-dim: #8b949e;
+      --green: #2ea44f;
+      --green-glow: rgba(46, 164, 79, 0.6);
+      --blue: #4d9eff;
+      --blue-glow: rgba(77, 158, 255, 0.6);
+      --purple: #a970ff;
+      --purple-glow: rgba(169, 112, 255, 0.6);
+      --glass: rgba(255, 255, 255, 0.035);
+      --glass-border: rgba(255, 255, 255, 0.09);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      text-align: center;
-      padding: 40px 20px;
-      background: linear-gradient(135deg, #f6f8fa 0%, #e6ecf3 100%);
-      min-height: 100vh;
-      color: #1f2328;
+    html {
+      scroll-behavior: smooth;
     }
 
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      text-align: center;
+      padding: 60px 20px 40px;
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* ═══ АНИМИРОВАННЫЙ МЕШ-ГРАДИЕНТ ═══ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: -50%;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(46, 164, 79, 0.35), transparent 40%),
+        radial-gradient(circle at 80% 25%, rgba(77, 158, 255, 0.35), transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(169, 112, 255, 0.3), transparent 45%),
+        radial-gradient(circle at 90% 70%, rgba(255, 82, 179, 0.2), transparent 40%);
+      animation: meshShift 24s ease-in-out infinite;
+      z-index: -2;
+      filter: blur(60px);
+    }
+
+    /* ═══ СЕТКА-ПАТТЕРН ═══ */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      z-index: -1;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+    }
+
+    @keyframes meshShift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      33%      { transform: translate(-4%, 3%) rotate(8deg) scale(1.08); }
+      66%      { transform: translate(3%, -4%) rotate(-6deg) scale(0.95); }
+    }
+
+    /* ═══ КУРСОР-ПОДСВЕТКА ═══ */
+    .cursor-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(77, 158, 255, 0.14), transparent 60%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      transition: opacity 0.3s;
+      will-change: left, top;
+    }
+
+    /* ═══ HEADER ═══ */
     header {
+      position: relative;
+      z-index: 1;
       max-width: 900px;
-      margin: 0 auto 40px;
+      margin: 0 auto 64px;
+      animation: fadeUp 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) both;
     }
 
     header h1 {
-      font-size: 36px;
-      margin-bottom: 12px;
-      color: #1f2328;
+      font-size: clamp(32px, 6vw, 54px);
+      font-weight: 900;
+      margin-bottom: 20px;
+      letter-spacing: -1.5px;
+      background: linear-gradient(90deg,
+        var(--green) 0%,
+        var(--blue) 33%,
+        var(--purple) 66%,
+        var(--green) 100%);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientFlow 6s linear infinite;
+      filter: drop-shadow(0 0 30px rgba(77, 158, 255, 0.4));
     }
 
     header .subtitle {
-      font-size: 16px;
-      color: #57606a;
-      line-height: 1.5;
+      font-size: 17px;
+      color: var(--text-dim);
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.7;
     }
 
+    @keyframes gradientFlow {
+      to { background-position: 300% 0; }
+    }
+
+    /* ═══ GRID ═══ */
     .games-grid {
+      position: relative;
+      z-index: 1;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
-      max-width: 900px;
-      margin: 0 auto 40px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto 56px;
     }
 
+    /* ═══ КАРТОЧКА ═══ */
     .game-block {
-      background: #ffffff;
-      border: 1px solid #d0d7de;
-      border-radius: 14px;
-      padding: 32px 24px;
-      box-shadow: 0 4px 14px rgba(31, 35, 40, 0.06);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+      background: var(--glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 40px 28px 32px;
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  box-shadow 0.4s,
+                  border-color 0.4s;
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow: hidden;
+      isolation: isolate;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    /* НЕОНОВЫЙ ГРАДИЕНТ-БОРДЕР (появляется при hover) */
+    .game-block::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: conic-gradient(from var(--angle, 0deg),
+        transparent 0deg,
+        var(--green) 90deg,
+        var(--blue) 180deg,
+        var(--purple) 270deg,
+        transparent 360deg);
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.5s;
+      animation: spinBorder 4s linear infinite;
+      pointer-events: none;
+    }
+
+    /* СВЕТОВОЕ ПЯТНО ВНУТРИ */
+    .game-block::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle,
+        rgba(77, 158, 255, 0.15) 0%,
+        transparent 40%);
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .game-block:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 28px rgba(31, 35, 40, 0.12);
+      transform: translateY(-8px) scale(1.015);
+      border-color: transparent;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(77, 158, 255, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
 
+    .game-block:hover::before,
+    .game-block:hover::after {
+      opacity: 1;
+    }
+
+    /* Reveal-анимация */
+    .game-block.revealed {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    @keyframes spinBorder {
+      to { --angle: 360deg; }
+    }
+
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    /* ═══ ИКОНКА ═══ */
     .game-icon {
-      font-size: 48px;
-      margin-bottom: 16px;
+      font-size: 62px;
+      margin-bottom: 18px;
+      animation: float 4.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 24px rgba(77, 158, 255, 0.5));
+      transition: transform 0.4s;
+      position: relative;
+      z-index: 1;
     }
 
+    .game-block:hover .game-icon {
+      transform: scale(1.15) rotate(-6deg);
+      filter: drop-shadow(0 0 40px rgba(77, 158, 255, 0.9));
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+
+    /* ═══ ЗАГОЛОВОК КАРТОЧКИ ═══ */
     .game-block h2 {
       font-size: 22px;
-      margin-bottom: 10px;
-      color: #1f2328;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+      color: #fff;
+      position: relative;
+      z-index: 1;
     }
 
+    /* ═══ ОПИСАНИЕ ═══ */
     .game-block p {
       font-size: 15px;
-      color: #57606a;
-      line-height: 1.6;
+      color: var(--text-dim);
+      line-height: 1.65;
       margin-bottom: 22px;
       flex-grow: 1;
+      position: relative;
+      z-index: 1;
     }
 
+    /* ═══ МЕТА-ИНФО ═══ */
     .game-meta {
-      font-size: 13px;
-      color: #8b949e;
-      margin-bottom: 18px;
+      font-size: 12.5px;
+      color: rgba(139, 148, 158, 0.9);
+      margin-bottom: 22px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      font-weight: 600;
     }
 
+    /* ═══ КНОПКА ═══ */
     .btn {
-      display: inline-block;
-      padding: 14px 28px;
-      background: #2ea44f;
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 17px;
-      font-weight: bold;
-      transition: background 0.2s ease, transform 0.15s ease;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 28px;
       width: 100%;
-      max-width: 320px;
+      max-width: 340px;
+      background: linear-gradient(135deg, #2ea44f 0%, #1f7a3a 100%);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      overflow: hidden;
+      z-index: 1;
+      transition:
+        transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1),
+        box-shadow 0.35s,
+        filter 0.35s;
+      box-shadow:
+        0 4px 16px rgba(46, 164, 79, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    /* SHIMMER-БЛИК */
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 80%;
+      height: 100%;
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent);
+      transform: skewX(-20deg);
+      transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    /* GLOW-ОРЕОЛ */
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: inherit;
+      filter: blur(18px);
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.4s;
     }
 
     .btn:hover {
-      background: #22863a;
-      transform: scale(1.02);
+      transform: translateY(-3px);
+      filter: brightness(1.1);
+      box-shadow:
+        0 8px 30px rgba(46, 164, 79, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    .btn:hover::before {
+      left: 130%;
+    }
+
+    .btn:hover::after {
+      opacity: 0.8;
     }
 
     .btn:active {
-      transform: scale(0.98);
+      transform: translateY(-1px) scale(0.98);
     }
 
+    /* СИНЯЯ (PyCode) */
+    .btn.blue {
+      background: linear-gradient(135deg, #4d9eff 0%, #1565d8 100%);
+      box-shadow:
+        0 4px 16px rgba(77, 158, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .btn.blue:hover {
+      box-shadow:
+        0 8px 30px rgba(77, 158, 255, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    /* ФИОЛЕТОВАЯ (на будущее) */
+    .btn.purple {
+      background: linear-gradient(135deg, #a970ff 0%, #7540d9 100%);
+      box-shadow:
+        0 4px 16px rgba(169, 112, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .btn.purple:hover {
+      box-shadow:
+        0 8px 30px rgba(169, 112, 255, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+
+    /* ═══ NOTE-БЛОКИ ═══ */
     .note {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 18px 22px;
-      background: #fff8e1;
-      border: 1px solid #f0d68a;
-      border-radius: 10px;
-      color: #6b5500;
-      font-size: 14px;
-      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto 22px;
+      padding: 22px 26px 22px 26px;
+      background: rgba(255, 248, 225, 0.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(240, 214, 138, 0.3);
+      border-radius: 14px;
+      color: #f0d68a;
+      font-size: 14.5px;
+      line-height: 1.65;
       text-align: left;
+      box-shadow:
+        0 4px 24px rgba(240, 214, 138, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+
+    .note.revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .note strong {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      font-size: 15.5px;
+      color: #ffe082;
+      letter-spacing: 0.2px;
     }
 
+    .note.info {
+      background: rgba(77, 158, 255, 0.1);
+      border-color: rgba(77, 158, 255, 0.35);
+      color: #a9d0ff;
+    }
+
+    .note.info strong {
+      color: #4d9eff;
+    }
+
+    /* ═══ FOOTER ═══ */
     footer {
+      position: relative;
+      z-index: 1;
       max-width: 900px;
-      margin: 50px auto 0;
-      padding-top: 24px;
-      border-top: 1px solid #d0d7de;
+      margin: 64px auto 0;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       font-size: 13px;
-      color: #8b949e;
-      line-height: 1.6;
+      color: var(--text-dim);
+      line-height: 1.8;
+      opacity: 0.85;
     }
 
-    @media (max-width: 480px) {
+    footer p + p {
+      margin-top: 4px;
+    }
+
+    /* ═══ FADE-UP ДЛЯ HEADER ═══ */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ═══ АДАПТИВ ═══ */
+    @media (max-width: 640px) {
+      body {
+        padding: 40px 16px 30px;
+      }
+      header {
+        margin-bottom: 44px;
+      }
       header h1 {
-        font-size: 26px;
+        font-size: 32px;
+      }
+      header .subtitle {
+        font-size: 15px;
+      }
+      .games-grid {
+        gap: 20px;
       }
       .game-block {
-        padding: 24px 18px;
+        padding: 32px 20px 26px;
+      }
+      .game-icon {
+        font-size: 52px;
       }
       .btn {
         font-size: 15px;
-        padding: 12px 20px;
+        padding: 14px 22px;
+      }
+      .note {
+        padding: 18px 20px;
+        font-size: 13.5px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Курсор-подсветка -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
   <header>
-    <h1>🎮 Скачать торрент-файлы</h1>
+    <h1>⚡ Скачать файлы</h1>
     <p class="subtitle">
-      Выберите игру и нажмите кнопку ниже, чтобы скачать торрент-файл.
+      Торрент-файлы игр и PyCode Editor — выберите нужное и скачайте одним кликом.
       Все файлы проверены и готовы к использованию.
     </p>
   </header>
 
   <main class="games-grid">
-    <div class="game-block">
+    <!-- Phasmophobia -->
+    <div class="game-block reveal">
       <div class="game-icon">👻</div>
       <h2>Phasmophobia</h2>
       <p>
@@ -171,7 +546,7 @@
         Исследуйте заброшенные локации, используйте оборудование и
         постарайтесь выжить вместе с командой.
       </p>
-      <div class="game-meta">Версия: v0.19.0.0 &middot; Жанр: Horror / Co-op</div>
+      <div class="game-meta">v0.19.0.0 · Horror / Co-op</div>
       <a class="btn"
          href="./Phasmophobia.v0.19.0.0.zip.torrent"
          download="Phasmophobia.v0.19.0.0.zip.torrent">
@@ -179,7 +554,8 @@
       </a>
     </div>
 
-    <div class="game-block">
+    <!-- Gamble With Your Friends -->
+    <div class="game-block reveal">
       <div class="game-icon">🎲</div>
       <h2>Gamble With Your Friends</h2>
       <p>
@@ -187,25 +563,105 @@
         в компании друзей. Испытайте удачу, делайте ставки и
         наслаждайтесь хаосом.
       </p>
-      <div class="game-meta">Жанр: Party / Multiplayer</div>
+      <div class="game-meta">Party / Multiplayer</div>
       <a class="btn"
          href="./Gamble.With.Your.Friends.torrent"
          download="Gamble.With.Your.Friends.torrent">
         ⬇ Скачать Gamble.With.Your.Friends.torrent
       </a>
     </div>
+
+    <!-- Forts -->
+    <div class="game-block reveal">
+      <div class="game-icon">🏰</div>
+      <h2>Forts</h2>
+      <p>
+        Стратегия-физика про строительство фортов и разрушение
+        построек противника. Стройте, стреляйте, взрывайте —
+        побеждает тот, кто продумал крепость лучше.
+      </p>
+      <div class="game-meta">Strategy / Physics</div>
+      <a class="btn"
+         href="./Forts.zip.torrent"
+         download="Forts.zip.torrent">
+        ⬇ Скачать Forts.zip.torrent
+      </a>
+    </div>
+
+    <!-- PyCode Editor -->
+    <div class="game-block reveal">
+      <div class="game-icon">💻</div>
+      <h2>PyCode Editor</h2>
+      <p>
+        Лёгкий редактор кода на Python с подсветкой синтаксиса,
+        вкладками, многострочным поиском и запуском кода по F5.
+        Поддержка Python, HTML, CSS, JS, Lua, C/C++, JSON, Markdown.
+      </p>
+      <div class="game-meta">v1.0 · Windows · Portable</div>
+      <a class="btn blue"
+         href="./PyCode.exe"
+         download="PyCode.exe">
+        ⬇ Скачать PyCode.exe
+      </a>
+    </div>
   </main>
 
-  <p class="note">
+  <p class="note reveal">
     <strong>⚠ Важно</strong>
     Если файл открылся прямо в браузере вместо загрузки — нажмите
     на ссылку правой кнопкой мыши и выберите
-    «Сохранить ссылку как…», чтобы скачать торрент-файл на компьютер.
+    «Сохранить ссылку как…», чтобы скачать файл на компьютер.
+  </p>
+
+  <p class="note info reveal">
+    <strong>🛡 PyCode.exe</strong>
+    Windows SmartScreen может показать предупреждение — это нормально
+    для неподписанных приложений. Нажмите «Подробнее» → «Выполнить в любом случае».
+    Исходный код открыт, вредоносного ПО нет.
   </p>
 
   <footer>
     <p>Все торрент-файлы предоставлены для ознакомительных целей.</p>
     <p>Пожалуйста, поддерживайте разработчиков, приобретая игры официально.</p>
+    <p>PyCode Editor — свободное ПО, распространяется «как есть».</p>
   </footer>
+
+  <script>
+    // ─── Курсор-подсветка ───
+    (function () {
+      const glow = document.getElementById('cursorGlow');
+      if (!glow) return;
+      let raf = null;
+      document.addEventListener('mousemove', function (e) {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          glow.style.left = e.clientX + 'px';
+          glow.style.top = e.clientY + 'px';
+          raf = null;
+        });
+      });
+    })();
+
+    // ─── Reveal-анимация при скролле ───
+    (function () {
+      const items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('revealed'));
+        return;
+      }
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry, i) {
+          if (entry.isIntersecting) {
+            setTimeout(function () {
+              entry.target.classList.add('revealed');
+            }, i * 80);
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      items.forEach(el => io.observe(el));
+    })();
+  </script>
 </body>
 </html>
