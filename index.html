@@ -703,7 +703,7 @@
     /* ═══════ КНОПКА ЧЕРЕПА И СТРАНИЦА ЧИТОВ ═══════ */
     .skull-btn {
       position: fixed;
-      bottom: 84px; /* Разместили над кнопкой Наверх */
+      bottom: 84px;
       right: 24px;
       width: 48px;
       height: 48px;
@@ -728,6 +728,101 @@
       border-color: rgba(255, 50, 50, 0.8);
       box-shadow: 0 0 20px rgba(255, 50, 50, 0.4);
       text-shadow: 0 0 10px #ff4d4d;
+    }
+
+    /* Модальное окно пароля */
+    .password-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .password-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .password-box {
+      background: #0a0a0f;
+      border: 1px solid rgba(255, 50, 50, 0.4);
+      padding: 30px 40px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(255, 50, 50, 0.15);
+      transform: translateY(20px);
+      transition: transform 0.3s;
+    }
+
+    .password-modal.active .password-box {
+      transform: translateY(0);
+    }
+
+    .password-box h3 {
+      color: #ff4d4d;
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+
+    .password-box p {
+      color: #888;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .password-box input {
+      width: 100%;
+      padding: 12px;
+      background: #000;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      text-align: center;
+      margin-bottom: 15px;
+      transition: border-color 0.3s;
+    }
+
+    .password-box input:focus {
+      border-color: #ff4d4d;
+    }
+
+    .password-box button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #ff4d4d, #b30000);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .password-box button:hover {
+      filter: brightness(1.2);
+      box-shadow: 0 0 15px rgba(255, 50, 50, 0.4);
+    }
+
+    .error-shake {
+      animation: shake 0.4s;
+      border-color: #ff0000 !important;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
     }
 
     .cheat-page {
@@ -788,12 +883,58 @@
       letter-spacing: 1px;
     }
 
+    /* ВКЛАДКИ */
+    .cheat-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cheat-tab {
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #b1bac4;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+
+    .cheat-tab:hover {
+      background: rgba(255, 50, 50, 0.1);
+      border-color: rgba(255, 50, 50, 0.3);
+      color: #fff;
+    }
+
+    .cheat-tab.active {
+      background: rgba(255, 50, 50, 0.2);
+      border-color: rgba(255, 50, 50, 0.6);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 50, 50, 0.3);
+    }
+
+    .cheat-content {
+      display: none;
+      width: 100%;
+    }
+
+    .cheat-content.active {
+      display: block;
+      animation: fadeUp 0.4s ease;
+    }
+
     .cheat-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
       width: 100%;
       max-width: 1200px;
+      margin: 0 auto;
     }
 
     .cheat-card {
@@ -871,6 +1012,7 @@
       transition: all 0.3s;
       border: none;
       cursor: pointer;
+      margin-bottom: 10px;
     }
 
     .cheat-btn:hover {
@@ -1153,85 +1295,130 @@
     </svg>
   </button>
 
+  <!-- Модальное окно пароля -->
+  <div class="password-modal" id="passwordModal">
+    <div class="password-box">
+      <h3>Доступ закрыт</h3>
+      <p>Введите кодовое слово для входа:</p>
+      <input type="text" id="passInput" placeholder="Пароль..." autocomplete="off">
+      <button id="passSubmit">Войти</button>
+    </div>
+  </div>
+
   <!-- Оверлей со страницей читов -->
   <div class="cheat-page" id="cheatPage">
     <button class="close-cheat" id="closeCheat">×</button>
     
-    <h1 class="cheat-title">💀 Экзекьюторы</h1>
-    <p class="cheat-subtitle">Секретный склад. Скачивай на свой страх и риск.</p>
+    <h1 class="cheat-title">💀 Секретная зона</h1>
+    <p class="cheat-subtitle">Скачивай на свой страх и риск.</p>
 
-    <div class="cheat-grid">
-      
-      <!-- Luna -->
-      <div class="cheat-card">
-        <div class="cheat-header">
-          <div class="cheat-name">Luna</div>
-          <div class="cheat-badge badge-free">Keyless</div>
-        </div>
-        <div class="cheat-specs">
-          <span>Windows (x64)</span>
-          <span>Internal/external</span>
-          <span>~70-78% UNC</span>
-        </div>
-        <div class="cheat-desc">
-          Встроенный анти-бан, Script Hub, стабильная работа с Luau. Зависит от версии.
-        </div>
-        <a class="cheat-btn" href="./Luna.exe" download="Luna.exe">Скачать Luna</a>
-      </div>
-
-      <!-- Solara -->
-      <div class="cheat-card">
-        <div class="cheat-header">
-          <div class="cheat-name">Solara</div>
-          <div class="cheat-badge badge-free">Keyless</div>
-        </div>
-        <div class="cheat-specs">
-          <span>Windows (x64)</span>
-          <span>External</span>
-          <span>~76% UNC / 59% sUNC</span>
-        </div>
-        <div class="cheat-desc">
-          Один из самых известных бесплатных экзекьюторов. Базовый интерфейс со вкладками.
-        </div>
-        <a class="cheat-btn" href="./SolaraV3.exe" download="SolaraV3.exe">Скачать Solara</a>
-      </div>
-
-      <!-- Real -->
-      <div class="cheat-card">
-        <div class="cheat-header">
-          <div class="cheat-name">Real</div>
-          <div class="cheat-badge badge-key">Key System</div>
-        </div>
-        <div class="cheat-specs">
-          <span>Windows (x64)</span>
-          <span>Internal / Hybrid</span>
-          <span>93% - 98% UNC</span>
-        </div>
-        <div class="cheat-desc">
-          Встроенный редактор, автозапуск, поддержка большинства сложных скриптов.
-        </div>
-        <!-- ВАЖНО: Файл RealSetup обрезан на скрине. Найди полное имя в папке и вставь сюда, либо переименуй файл в RealSetup.exe -->
-        <a class="cheat-btn" href="./RealSetup_3d01939b77cd465dfd2d0d66dd47895cb64c45a3e53ab8596b32e5bab713d049.exe" download="RealSetup.exe">Скачать Real</a>
-      </div>
-
-      <!-- Xeno -->
-      <div class="cheat-card">
-        <div class="cheat-header">
-          <div class="cheat-name">Xeno</div>
-          <div class="cheat-badge badge-free">Keyless</div>
-        </div>
-        <div class="cheat-specs">
-          <span>Windows (x64)</span>
-          <span>External</span>
-          <span>Level 7 UNC</span>
-        </div>
-        <div class="cheat-desc">
-          Высокая скорость выполнения, оптимизация под стандартные скрипты. Умеренный уровень.
-        </div>
-        <a class="cheat-btn" href="./Xeno-v1.3.65.exe" download="Xeno-v1.3.65.exe">Скачать Xeno</a>
-      </div>
-
+    <!-- Вкладки -->
+    <div class="cheat-tabs">
+      <button class="cheat-tab active" data-target="tab-executors">Экзекьютеры (Roblox)</button>
+      <button class="cheat-tab" data-target="tab-cheats">Читы (Minecraft)</button>
     </div>
+
+    <!-- Вкладка 1: Экзекьютеры -->
+    <div class="cheat-content active" id="tab-executors">
+      <div class="cheat-grid">
+        
+        <!-- Luna -->
+        <div class="cheat-card">
+          <div class="cheat-header">
+            <div class="cheat-name">Luna</div>
+            <div class="cheat-badge badge-free">Keyless</div>
+          </div>
+          <div class="cheat-specs">
+            <span>Windows (x64)</span>
+            <span>Internal/external</span>
+            <span>~70-78% UNC</span>
+          </div>
+          <div class="cheat-desc">
+            Встроенный анти-бан, Script Hub, стабильная работа с Luau. Зависит от версии.
+          </div>
+          <a class="cheat-btn" href="./Luna.exe" download="Luna.exe">Скачать Luna</a>
+        </div>
+
+        <!-- Solara -->
+        <div class="cheat-card">
+          <div class="cheat-header">
+            <div class="cheat-name">Solara</div>
+            <div class="cheat-badge badge-free">Keyless</div>
+          </div>
+          <div class="cheat-specs">
+            <span>Windows (x64)</span>
+            <span>External</span>
+            <span>~76% UNC / 59% sUNC</span>
+          </div>
+          <div class="cheat-desc">
+            Один из самых известных бесплатных экзекьюторов. Базовый интерфейс со вкладками.
+          </div>
+          <a class="cheat-btn" href="./SolaraV3.exe" download="SolaraV3.exe">Скачать Solara</a>
+        </div>
+
+        <!-- Real -->
+        <div class="cheat-card">
+          <div class="cheat-header">
+            <div class="cheat-name">Real</div>
+            <div class="cheat-badge badge-key">Key System</div>
+          </div>
+          <div class="cheat-specs">
+            <span>Windows (x64)</span>
+            <span>Internal / Hybrid</span>
+            <span>93% - 98% UNC</span>
+          </div>
+          <div class="cheat-desc">
+            Встроенный редактор, автозапуск, поддержка большинства сложных скриптов.
+          </div>
+          <a class="cheat-btn" href="./RealSetup_3d01939b77cd465dfd2d0d66...exe" download="RealSetup.exe">Скачать Real</a>
+        </div>
+
+        <!-- Xeno -->
+        <div class="cheat-card">
+          <div class="cheat-header">
+            <div class="cheat-name">Xeno</div>
+            <div class="cheat-badge badge-free">Keyless</div>
+          </div>
+          <div class="cheat-specs">
+            <span>Windows (x64)</span>
+            <span>External</span>
+            <span>Level 7 UNC</span>
+          </div>
+          <div class="cheat-desc">
+            Высокая скорость выполнения, оптимизация под стандартные скрипты. Умеренный уровень.
+          </div>
+          <a class="cheat-btn" href="./Xeno-v1.3.65.exe" download="Xeno-v1.3.65.exe">Скачать Xeno</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Вкладка 2: Читы -->
+    <div class="cheat-content" id="tab-cheats">
+      <div class="cheat-grid">
+        
+        <!-- Meteor Client -->
+        <div class="cheat-card">
+          <div class="cheat-header">
+            <div class="cheat-name">Meteor Client</div>
+            <div class="cheat-badge badge-free">Fabric</div>
+          </div>
+          <div class="cheat-specs">
+            <span>Minecraft 1.21.5</span>
+            <span>Fabric</span>
+            <span>Версия 16</span>
+          </div>
+          <div class="cheat-desc">
+            Один из лучших чит-клиентов для Minecraft. <br>
+            <strong>Внимание:</strong> для работы обязательно нужен установленный Fabric Loader и Fabric API (скачайте оба файла ниже).
+          </div>
+          <a class="cheat-btn" href="./meteor-client-1.21.5-16.jar" download="meteor-client-1.21.5-16.jar">Скачать Meteor Client (.jar)</a>
+          <a class="cheat-btn" style="background: linear-gradient(135deg, #a970ff, #7540d9);" href="./fabric-api-0.128.21.21.5.jar" download="fabric-api-0.128.21.21.5.jar">Скачать Fabric API (.jar)</a>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -1328,7 +1515,6 @@
             if (navigator.clipboard && window.isSecureContext) {
               await navigator.clipboard.writeText(absolute);
             } else {
-              // Fallback для небезопасного контекста (file:// и т.п.)
               const ta = document.createElement('textarea');
               ta.value = absolute;
               ta.style.position = 'fixed';
@@ -1359,19 +1545,70 @@
       });
     })();
 
-    /* ── Секретная страница читов ── */
+    /* ── Секретная страница, пароль и вкладки ── */
     (function () {
       const skullBtn = document.getElementById('skullBtn');
+      const passwordModal = document.getElementById('passwordModal');
+      const passInput = document.getElementById('passInput');
+      const passSubmit = document.getElementById('passSubmit');
       const cheatPage = document.getElementById('cheatPage');
       const closeCheat = document.getElementById('closeCheat');
 
-      if (!skullBtn || !cheatPage) return;
+      if (!skullBtn || !cheatPage || !passwordModal) return;
 
+      // Открываем окно с паролем при клике на череп
       skullBtn.addEventListener('click', () => {
-        cheatPage.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        passwordModal.classList.add('active');
+        passInput.focus();
       });
 
+      // Проверка пароля
+      function checkPassword() {
+        if (passInput.value.trim() === 'Misty') {
+          passwordModal.classList.remove('active');
+          cheatPage.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          passInput.value = '';
+          passInput.classList.remove('error-shake');
+        } else {
+          passInput.classList.add('error-shake');
+          passInput.value = '';
+          setTimeout(() => passInput.classList.remove('error-shake'), 500);
+        }
+      }
+
+      passSubmit.addEventListener('click', checkPassword);
+      passInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkPassword();
+      });
+      passwordModal.addEventListener('click', (e) => {
+        if (e.target === passwordModal) {
+          passwordModal.classList.remove('active');
+          passInput.value = '';
+          passInput.classList.remove('error-shake');
+        }
+      });
+
+      // Логика вкладок внутри страницы читов
+      const cheatTabs = document.querySelectorAll('.cheat-tab');
+      const cheatContents = document.querySelectorAll('.cheat-content');
+
+      cheatTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Убираем активный класс у всех кнопок
+          cheatTabs.forEach(t => t.classList.remove('active'));
+          // Делаем нажатую кнопку активной
+          tab.classList.add('active');
+
+          // Скрываем весь контент
+          cheatContents.forEach(c => c.classList.remove('active'));
+          // Показываем нужный по id
+          const targetId = tab.getAttribute('data-target');
+          document.getElementById(targetId).classList.add('active');
+        });
+      });
+
+      // Закрытие страницы читов
       closeCheat.addEventListener('click', () => {
         cheatPage.classList.remove('active');
         document.body.style.overflow = '';
