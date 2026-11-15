@@ -700,6 +700,184 @@
 
     .back-top svg { width: 20px; height: 20px; }
 
+    /* ═══════ КНОПКА ЧЕРЕПА И СТРАНИЦА ЧИТОВ ═══════ */
+    .skull-btn {
+      position: fixed;
+      bottom: 84px; /* Разместили над кнопкой Наверх */
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(20, 10, 15, 0.8);
+      border: 1px solid rgba(255, 50, 50, 0.3);
+      color: #ff4d4d;
+      font-size: 22px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      z-index: 50;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .skull-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      background: rgba(40, 10, 15, 0.9);
+      border-color: rgba(255, 50, 50, 0.8);
+      box-shadow: 0 0 20px rgba(255, 50, 50, 0.4);
+      text-shadow: 0 0 10px #ff4d4d;
+    }
+
+    .cheat-page {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 10, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      overflow-y: auto;
+    }
+
+    .cheat-page.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .close-cheat {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: transparent;
+      border: none;
+      color: #888;
+      font-size: 36px;
+      cursor: pointer;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+
+    .close-cheat:hover { color: #fff; }
+
+    .cheat-title {
+      font-size: 38px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(255, 50, 50, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .cheat-subtitle {
+      color: #a970ff;
+      font-size: 15px;
+      margin-bottom: 40px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .cheat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .cheat-card {
+      background: rgba(20, 20, 25, 0.6);
+      border: 1px solid rgba(255, 50, 50, 0.15);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+      transition: all 0.3s;
+    }
+
+    .cheat-card:hover {
+      border-color: rgba(255, 50, 50, 0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 50, 50, 0.1);
+    }
+
+    .cheat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .cheat-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .cheat-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .badge-free { background: rgba(46, 164, 79, 0.15); color: #4ade80; border: 1px solid rgba(46, 164, 79, 0.3); }
+    .badge-key { background: rgba(255, 50, 50, 0.15); color: #ff4d4d; border: 1px solid rgba(255, 50, 50, 0.3); }
+
+    .cheat-specs {
+      font-size: 13px;
+      color: #8b949e;
+      margin-bottom: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cheat-specs span {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    .cheat-desc {
+      font-size: 14px;
+      color: #b1bac4;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      min-height: 60px;
+    }
+
+    .cheat-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #ff4d4d, #b30000);
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 10px;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cheat-btn:hover {
+      filter: brightness(1.2);
+      box-shadow: 0 0 20px rgba(255, 50, 50, 0.4);
+    }
+
     /* ═══════ АДАПТИВ ═══════ */
     @media (max-width: 720px) {
       body { padding: 44px 16px 32px; }
@@ -719,6 +897,8 @@
       .notice-body { font-size: 13.5px; }
       .toast { bottom: 88px; font-size: 13px; padding: 10px 16px; }
       .back-top { width: 44px; height: 44px; bottom: 20px; right: 20px; }
+      .skull-btn { width: 44px; height: 44px; bottom: 76px; right: 20px; }
+      .cheat-title { font-size: 28px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -963,12 +1143,96 @@
     <span id="toast-text">Ссылка скопирована</span>
   </div>
 
+  <!-- Кнопка Черепа -->
+  <button class="skull-btn" id="skullBtn" title="Секретная страница">💀</button>
+
   <!-- Back to top -->
   <button class="back-top" id="backTop" type="button" aria-label="Наверх">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M12 20V5m0 0l-6 6m6-6l6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </button>
+
+  <!-- Оверлей со страницей читов -->
+  <div class="cheat-page" id="cheatPage">
+    <button class="close-cheat" id="closeCheat">×</button>
+    
+    <h1 class="cheat-title">💀 Экзекьюторы</h1>
+    <p class="cheat-subtitle">Секретный склад. Скачивай на свой страх и риск.</p>
+
+    <div class="cheat-grid">
+      
+      <!-- Luna -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <div class="cheat-name">Luna</div>
+          <div class="cheat-badge badge-free">Keyless</div>
+        </div>
+        <div class="cheat-specs">
+          <span>Windows (x64)</span>
+          <span>Internal/external</span>
+          <span>~70-78% UNC</span>
+        </div>
+        <div class="cheat-desc">
+          Встроенный анти-бан, Script Hub, стабильная работа с Luau. Зависит от версии.
+        </div>
+        <a class="cheat-btn" href="./Luna.exe" download="Luna.exe">Скачать Luna</a>
+      </div>
+
+      <!-- Solara -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <div class="cheat-name">Solara</div>
+          <div class="cheat-badge badge-free">Keyless</div>
+        </div>
+        <div class="cheat-specs">
+          <span>Windows (x64)</span>
+          <span>External</span>
+          <span>~76% UNC / 59% sUNC</span>
+        </div>
+        <div class="cheat-desc">
+          Один из самых известных бесплатных экзекьюторов. Базовый интерфейс со вкладками.
+        </div>
+        <a class="cheat-btn" href="./SolaraV3.exe" download="SolaraV3.exe">Скачать Solara</a>
+      </div>
+
+      <!-- Real -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <div class="cheat-name">Real</div>
+          <div class="cheat-badge badge-key">Key System</div>
+        </div>
+        <div class="cheat-specs">
+          <span>Windows (x64)</span>
+          <span>Internal / Hybrid</span>
+          <span>93% - 98% UNC</span>
+        </div>
+        <div class="cheat-desc">
+          Встроенный редактор, автозапуск, поддержка большинства сложных скриптов.
+        </div>
+        <!-- ВАЖНО: Файл RealSetup обрезан на скрине. Найди полное имя в папке и вставь сюда, либо переименуй файл в RealSetup.exe -->
+        <a class="cheat-btn" href="./RealSetup_3d01939b77cd465dfd2d0d66...exe" download="RealSetup.exe">Скачать Real</a>
+      </div>
+
+      <!-- Xeno -->
+      <div class="cheat-card">
+        <div class="cheat-header">
+          <div class="cheat-name">Xeno</div>
+          <div class="cheat-badge badge-free">Keyless</div>
+        </div>
+        <div class="cheat-specs">
+          <span>Windows (x64)</span>
+          <span>External</span>
+          <span>Level 7 UNC</span>
+        </div>
+        <div class="cheat-desc">
+          Высокая скорость выполнения, оптимизация под стандартные скрипты. Умеренный уровень.
+        </div>
+        <a class="cheat-btn" href="./Xeno-v1.3.65.exe" download="Xeno-v1.3.65.exe">Скачать Xeno</a>
+      </div>
+
+    </div>
+  </div>
 
   <script>
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1092,6 +1356,32 @@
       }, { passive: true });
       btn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      });
+    })();
+
+    /* ── Секретная страница читов ── */
+    (function () {
+      const skullBtn = document.getElementById('skullBtn');
+      const cheatPage = document.getElementById('cheatPage');
+      const closeCheat = document.getElementById('closeCheat');
+
+      if (!skullBtn || !cheatPage) return;
+
+      skullBtn.addEventListener('click', () => {
+        cheatPage.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+
+      closeCheat.addEventListener('click', () => {
+        cheatPage.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+
+      cheatPage.addEventListener('click', (e) => {
+        if (e.target === cheatPage) {
+          cheatPage.classList.remove('active');
+          document.body.style.overflow = '';
+        }
       });
     })();
   </script>
